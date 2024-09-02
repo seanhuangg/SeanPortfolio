@@ -63,7 +63,7 @@ const Contact = () => {
                         <form onSubmit={handleSubmit} className="flex flex-col gap-6 p-10 bg-[#27272c] rounded-xl">
                             {/* eslint-disable-next-line react/no-unescaped-entities */}
                             <h3 className="text-4xl text-accent">Let's work!</h3>
-                            <p className="text-white/60">description of the work together</p>
+                            <p className="text-white/60">Feel free to contact me and leave a message.</p>
 
                             {/* input */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
