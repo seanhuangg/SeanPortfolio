@@ -12,7 +12,7 @@ const Photo = () => {
                 animate={{ opacity: 1, transition: { delay: 0.4, duration: 0.2, ease: "easeInOut" } }}
                 className="flex justify-center items-center"
             >
-                <div className="relative w-[198px] h-[198px] xl:w-[398px] xl:h-[398px] mix-blend-lighten">
+                <div className="relative w-[298px] h-[298px] xl:w-[548px] xl:h-[548px] mix-blend-lighten">
                     <Image
                         src="/assets/work/portrait.png"
                         priority

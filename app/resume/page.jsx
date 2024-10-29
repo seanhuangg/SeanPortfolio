@@ -10,8 +10,8 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { motion } from "framer-motion"
 
 const about = {
-  title: 'About me',
-  description: 'this is the decription',
+  title: 'Personal Information',
+  description: '',
   info: [
     {
       fieldName: "Name",
@@ -50,15 +50,15 @@ const about = {
 
 const experience = {
   icon: '/assets/resume/logo.svg',
-  title: "My experience",
-  description: "No experience yet! Looking for new oppourtunities.",
+  title: "Work Experience",
+  description: "No experience yet! Looking for new opportunities.",
   items: []
 }
 
 const education = {
   icon: '/assets/resume/logo.svg',
-  title: "My education",
-  description: "description of my experiences in coding...",
+  title: "My Education",
+  description: "Brief overview of my educational background.",
   items: [
     {
       institution: "Carleton University",
@@ -74,8 +74,8 @@ const education = {
 }
 
 const skills = {
-  title: "my skills",
-  description: "skills description",
+  title: "My Skills",
+  description: "",
   skillList: [
     {
       icon: <FaHtml5 />,

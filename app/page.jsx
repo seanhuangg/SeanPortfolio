@@ -23,8 +23,8 @@ const Home = () => {
             </span>
 
             {/* intro */}
-            <h1 className="h1 mb-6">Hi, my name is <br />
-              <span className="text-accent">Sean Huang</span>
+            <h1 className="h1 mb-6">Hi, my name is
+              <span className="text-accent whitespace-nowrap">{' '}Sean Huang</span>
             </h1>
 
             {/* description */}
