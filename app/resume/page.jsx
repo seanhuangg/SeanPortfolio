@@ -1,6 +1,6 @@
 "use client"
 
-import { FaHtml5, FaCss3, FaJs, FaReact, FaFigma, FaNodeJs, FaJava, FaPython } from "react-icons/fa"
+import { FaHtml5, FaCss3, FaJs, FaReact, FaJava, FaPython } from "react-icons/fa"
 import { SiTailwindcss, SiNextdotjs, SiTypescript } from "react-icons/si"
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -53,6 +53,29 @@ const experience = {
   title: "Work Experience",
   description: "No experience yet! Looking for new opportunities.",
   items: []
+}
+
+const leadership = {
+  icon: '/assets/resume/logo.svg',
+  title: 'Leadership Experience',
+  description: 'Soft skills are just as important as technical skills. Here are some of my experiences working in a leadership/team environment:',
+  items: [
+    {
+      company: "TMU Bold Varsity Badminton",
+      position: "Varsity Captain",
+      duration: "2024-Present",
+    },
+    {
+      company: "9Round Kickboxing Fitness",
+      position: "Fitness Trainer",
+      duration: "2021-Present",
+    },
+    {
+      company: "Bujak Badminton",
+      position: "Badminton Coach",
+      duration: "2023-2024",
+    },
+  ]
 }
 
 const education = {
@@ -123,15 +146,18 @@ const Resume = () => {
         <Tabs defaultValue="experience" className="flex flex-col xl:flex-row gap-[60px]">
           <TabsList className="flex flex-col w-full max-w-[380px] mx-auto xl:mx-0 gap-6">
             <TabsTrigger value="experience">Experience</TabsTrigger>
+            <TabsTrigger value="leadership">Leadership Experience</TabsTrigger>
             <TabsTrigger value="education">Edcuation</TabsTrigger>
             <TabsTrigger value="skills">Skills</TabsTrigger>
             <TabsTrigger value="about">About me</TabsTrigger>
           </TabsList>
+
           {/* content */}
           <div className="min-h-[70vh] w-full">
+
             {/* experience */}
             <TabsContent value="experience" className="w-full">
-              <div className="flex flex-col gap-[30px] text-ecneter xl:text-left">
+              <div className="flex flex-col gap-[30px] text-center xl:text-left">
                 <h3 className="text-4xl font-bold">{experience.title}</h3>
                 <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">{experience.description}</p>
                 <ScrollArea className="h-[400px]">
@@ -153,12 +179,32 @@ const Resume = () => {
               </div>
             </TabsContent>
 
-
-
+            {/* leadership experience */}
+            <TabsContent value="leadership" className="w-full">
+              <div className="flex flex-col gap-[30px] text-center xl:text-left">
+                <h3 className="text-4xl font-bold">{leadership.title}</h3>
+                <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">{leadership.description}</p>
+                <ScrollArea className="h-[400px]">
+                  <ul className="grid grid-cols-1 lg:grid-cols-2 gap-[30px]">
+                    {leadership.items.map((leader, index) => {
+                      return <li key={index} className="bg-[#232329] h-[184px] py-6 px-10 rounded-xl flex flex-col justify-center items-center
+                      lg:items-start gap-1">
+                        <span className="text-accent">{leader.duration}</span>
+                        <h3 className="text-xl max-w-[260px] min-h-[60px] text-center lg:text-left">{leader.position}</h3>
+                        <div className="flex items-center gap-3">
+                          <span className="w-[6px] h-[6px] rounded-full bg-accent"></span>
+                          <p className="text-white/60">{leader.company}</p>
+                        </div>
+                      </li>
+                    })}
+                  </ul>
+                </ScrollArea>
+              </div>
+            </TabsContent>
 
             {/* education */}
             <TabsContent value="education" className="w-full">
-              <div className="flex flex-col gap-[30px] text-ecneter xl:text-left">
+              <div className="flex flex-col gap-[30px] text-center xl:text-left">
                 <h3 className="text-4xl font-bold">{education.title}</h3>
                 <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">{education.description}</p>
                 <ScrollArea className="h-[400px]">
