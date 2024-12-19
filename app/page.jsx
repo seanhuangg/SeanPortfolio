@@ -30,7 +30,7 @@ const Home = () => {
             {/* description */}
             <p className="max-w-[600px] mb-9 text-white/80">
               I make visually appealing web pages and I am proficient in
-              various front-end technologies, as well as having soft skills that
+              various front-end technologies, along with possessing many soft skills that
               enable me to work well in a team setting. I am currently studying Computer Science
               at Toronto Metropolitan University and currently looking for internship/co-op opportunities.
             </p>

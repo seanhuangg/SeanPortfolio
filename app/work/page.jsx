@@ -15,17 +15,27 @@ import WorkSliderBtns from "@/components/WorkSliderBtns"
 
 const projects = [
     {
-        num: '01',
+        num: "01",
+        category: "front-end",
+        title: "SH Landing Page",
+        description: "A visually appealing template intended for a company's landing page. Individual client needs may vary.",
+        stack: [{ name: "React.js" }, { name: "JavaScript" }, { name: "Tailwind.css" }],
+        image: "/assets/work/shlanding.png",
+        live: "https://shlandingpage.vercel.app",
+        github: "https://github.com/seanhuangg/business-landing-page/",
+    },
+    {
+        num: '02',
         category: 'fullstack',
         title: "CaseCreations",
         description: "A functioning e-commerce platform complete with encrypted user data processing, eye-catching design and user-friendly interface.",
         stack: [{ name: "Next.js" }, { name: "React.js" }, { name: "Tailwind.css" }],
         image: "/assets/work/cc.png",
         live: "https://casecreations.vercel.app/",
-        github: "",
+        github: "https://github.com/seanhuangg/casecreation",
     },
     {
-        num: '02',
+        num: '03',
         category: 'frontend',
         title: "BettrYou",
         description: "Simple front-end website equipped with 3 quizzes dedicated to helping those in undesirable situations get the help they require.",
@@ -35,7 +45,7 @@ const projects = [
         github: "https://github.com/seanhuangg/BettrYou",
     },
     {
-        num: '03',
+        num: '04',
         category: 'frontend',
         title: "React-to-do",
         description: "Simple to-do list launched on the Chrome Web Store for convenience in monitoring daily tasks.",
