@@ -10,7 +10,7 @@ const Header = () => {
                 {/* Logo */}
                 <Link href="/">
                     <h1 className="text-2xl font-semibold">
-                        Sean's
+                        Sean&apos;s
                         <span> </span>
                         <span className="text-portfolio">
                             Portfolio
