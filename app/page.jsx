@@ -1,6 +1,7 @@
+"use client"
+
 import Photo from "@/components/Photo"
 import Social from "@/components/Social"
-import Stats from "@/components/Stats"
 import { Button } from "@/components/ui/button"
 import { FiDownload } from "react-icons/fi"
 
@@ -22,10 +23,11 @@ const Home = () => {
 
             {/* description */}
             <p className="max-w-[600px] mb-9 text-white/80">
-              I make visually appealing web pages and I am proficient in
-              various front-end technologies, along with possessing many soft skills that
-              enable me to work well in a team setting. I am currently studying Computer Science
-              at Toronto Metropolitan University and currently looking for internship/co-op opportunities.
+              Hello, my name is Sean Huang and I am in my third year of studying Computer Science
+              at Toronto Metropolitan University. I make visually appealing and functional frontend web pages,
+              in addition to experience in automation testing, fetching backend APIs, and CI/CD. My experiences
+              as a Software Developer Intern at OTT Financial and 01 Quantum Inc. equip me with all the necessary
+              skills to succeed in future roles.
             </p>
 
             {/* button for socials */}
@@ -33,7 +35,8 @@ const Home = () => {
               <Button
                 variant="outline"
                 size="lg"
-                className="uppercase flex items-center gap-2 hover:bg-portfolio hover:text-primary">
+                className="uppercase flex items-center gap-2 hover:bg-portfolio hover:text-primary"
+                onClick={() => window.open("/assets/resume/Sean_Huang_Resume.pdf", "_blank")}>
                 <span>
                   Download My Resume
                 </span>
@@ -53,7 +56,6 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <Stats />
     </section>
   )
 }
