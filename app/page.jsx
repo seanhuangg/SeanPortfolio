@@ -9,7 +9,7 @@ const Home = () => {
   return (
     <section className="h-full">
       <div className="container mx-auto h-full">
-        <div className="flex flex-col xl:flex-row items-center justify-between xl:pt-8 xl:pb-24">
+        <div className="flex flex-col xl:flex-row items-center xl:items-start justify-between xl:pt-8 xl:pb-24 xl:gap-20">
           {/* text */}
           <div className="text-center xl:text-left order-2 xl:order-none">
             <span className="text-xl">
@@ -17,7 +17,7 @@ const Home = () => {
             </span>
 
             {/* intro */}
-            <h1 className="h1 mb-6">Hi, my name is <br />
+            <h1 className="h1 mb-6">Hi, I am <br />
               <span className="text-accent">Sean Huang</span>
             </h1>
 
@@ -51,7 +51,7 @@ const Home = () => {
 
           </div>
           {/* photo */}
-          <div className="order-1 xl;order-none mb-8 xl:mb-0">
+          <div className="order-1 xl:order-none xl:mb-0 xl:ml-18 xl:-mt-24">
             <Photo />
           </div>
         </div>
