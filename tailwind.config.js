@@ -20,17 +20,17 @@ module.exports = {
       xl: '1200px',
     },
     fontFamily: {
-      primary: "var(--font-jetBrainsMono)",
+      primary: "Arial, Helvetica, sans-serif",
     },
     extend: {
       colors: {
-        primary: '#181818',
-        secondary: "#00ff99",
-        tertiary: "#84c6e1",
-        portfolio: "#ffe4c4",
+        primary: '#000000',
+        secondary: "#1C3334",
+        tertiary: "#FF00E4",
+        portfolio: "#06FFA2",
         accent: {
-          DEFAULT: "#9ddffa",
-          hover: "#00e187",
+          DEFAULT: "var(--accent)",
+          hover: "#FFFFFF",
         },
       },
       keyframes: {

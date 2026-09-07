@@ -1,171 +1,47 @@
 "use client";
-
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
+import { ArrowUpRight, Phone, Mail, MapPin } from "lucide-react";
 
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-
-import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
-
-import { motion } from "framer-motion";
-
-const info = [
-  {
-    icon: <FaPhoneAlt />,
-    title: "Phone",
-    description: "647-631-0882",
-  },
-  {
-    icon: <FaEnvelope />,
-    title: "Email",
-    description: "sean.huang@torontomu.ca ",
-  },
-  {
-    icon: <FaMapMarkerAlt />,
-    title: "Located In",
-    description: "Toronto, Ontario, Canada",
-  },
-];
-
-const Contact = () => {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    service: "",
-    message: "",
-  });
-
-  const handleSubmit = async (e) => {
+export default function Contact() {
+  const [formData,setFormData]=useState({firstName:"",lastName:"",email:"",phone:"",service:"",message:""});
+  const [status,setStatus]=useState("");
+  const [pending,setPending]=useState(false);
+  const isEmailValid=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim());
+  const isFormComplete=[formData.firstName,formData.message].every(value=>value.trim())&&isEmailValid;
+  async function handleSubmit(e) {
     e.preventDefault();
-
-    const res = await fetch("/api/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
-
-    const data = await res.json();
-
-    if (data.success) {
-      alert("Your message has been sent!");
-    } else {
-      alert("Something went wrong. Please try again later.");
-    }
-  };
-
-  return (
-    <motion.section
-      initial={{ opacity: 0 }}
-      animate={{
-        opacity: 1,
-        transition: { delay: 0.4, duration: 0.4, ease: "easeIn" },
-      }}
-      className="py-6"
-    >
-      <div className="container mx-auto">
-        <div className="flex flex-col xl:flex-row gap-[30px]">
-          <div className="xl:w-[54%] order-2 xl:order-none">
-            {/* form */}
-            <form
-              onSubmit={handleSubmit}
-              className="flex flex-col gap-6 p-10 bg-[#27272c] rounded-xl"
-            >
-              {/* eslint-disable-next-line react/no-unescaped-entities */}
-              <h3 className="text-4xl text-accent">Let's work!</h3>
-              <p className="text-white/60">
-                Please enter your contact information below!
-              </p>
-
-              {/* input */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Input
-                  placeholder="First Name"
-                  value={formData.firstName}
-                  onChange={(e) =>
-                    setFormData({ ...formData, firstName: e.target.value })
-                  }
-                />
-
-                <Input
-                  placeholder="Last Name"
-                  value={formData.lastName}
-                  onChange={(e) =>
-                    setFormData({ ...formData, lastName: e.target.value })
-                  }
-                />
-
-                <Input
-                  placeholder="Email"
-                  value={formData.email}
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
-                />
-
-                <Input
-                  placeholder="Phone Number"
-                  value={formData.phone}
-                  onChange={(e) =>
-                    setFormData({ ...formData, phone: e.target.value })
-                  }
-                />
-              </div>
-              
-              {/* text area */}
-              <Textarea
-                className="h-[200px]"
-                placeholder="Type your message here..."
-                value={formData.message}
-                onChange={(e) =>
-                  setFormData({ ...formData, message: e.target.value })
-                }
-              />
-
-              {/* submit button */}
-              <Button
-                type="submit"
-                size="md"
-                className="text-white/80 bg-primary max-w-40"
-              >
-                Submit
-              </Button>
-            </form>
-          </div>
-
-          {/* info */}
-          <div className="flex-1 flex items-center xl:justify-end order-1 xl:order-none mb-8 xl:mb-0">
-            <ul className="flex flex-col gap-10">
-              {info.map((item, index) => {
-                return (
-                  <li key={index} className="flex items-center gap-6">
-                    <div className="w-[52px] h-[52px] xl:w-[72px] xl:h-[72px] bg-[#27272c] text-white/80 rounded-md flex items-center justify-center">
-                      <div className="text-[28px]">{item.icon}</div>
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-white/60">{item.title}</p>
-                      <h3 className="text-xl">{item.description}</h3>
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
+    if(pending) return;
+    setPending(true); setStatus("");
+    try {
+      const res=await fetch("/api/contact",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(formData)});
+      const data=await res.json();
+      setStatus(res.ok&&data.success?"Your message has been sent!":"Something went wrong. Please try again later.");
+    } catch { setStatus("Something went wrong. Please try again later."); }
+    finally { setPending(false); }
+  }
+  const update=(e)=>setFormData({...formData,[e.target.name]:e.target.value});
+  return <div className="container page contact-page">
+    <div className="page-heading"><h1>Contact<span className="text-accent">.</span></h1></div>
+    <div className="contact-grid">
+      <form onSubmit={handleSubmit} className="contact-form" aria-busy={pending}>
+        <h2>Let&apos;s work!</h2><p>Please enter your contact information below!</p>
+        <div className="form-fields">
+          <label className="form-field" htmlFor="firstName"><span>First Name <span className="required-mark" aria-hidden="true">*</span></span><Input id="firstName" name="firstName" autoComplete="given-name" placeholder="First Name" required value={formData.firstName} onChange={update}/></label>
+          <label className="form-field" htmlFor="lastName">Last Name<Input id="lastName" name="lastName" autoComplete="family-name" placeholder="Last Name" value={formData.lastName} onChange={update}/></label>
+          <label className="form-field" htmlFor="email"><span>Email <span className="required-mark" aria-hidden="true">*</span></span><Input id="email" name="email" autoComplete="email" type="email" placeholder="Email" required value={formData.email} onChange={update}/></label>
+          <label className="form-field" htmlFor="phone">Phone Number<Input id="phone" name="phone" autoComplete="tel" type="tel" placeholder="Phone Number" value={formData.phone} onChange={update}/></label>
         </div>
-      </div>
-    </motion.section>
-  );
-};
-
-export default Contact;
+        <label className="form-field message-field" htmlFor="message"><span>Message <span className="required-mark" aria-hidden="true">*</span></span><Textarea id="message" name="message" placeholder="Type your message here..." required value={formData.message} onChange={update}/></label>
+        <button type="submit" className="button button-primary" disabled={pending||!isFormComplete}>{pending?"Sending...":"Submit"}<ArrowUpRight size={16}/></button>
+        <div role="status" className="form-status">{status}</div>
+      </form>
+      <ul className="contact-info">
+        <li><Phone size={20}/><div><p>Phone</p><a href="tel:+16476310882">647-631-0882</a></div></li>
+        <li><Mail size={20}/><div><p>Email</p><a href="mailto:sean.huang16@hotmail.com">sean.huang16@hotmail.com</a></div></li>
+        <li><MapPin size={20}/><div><p>Located In</p><span>Toronto, Ontario, Canada</span></div></li>
+      </ul>
+    </div>
+  </div>;
+}

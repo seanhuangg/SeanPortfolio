@@ -1,65 +1,19 @@
-"use client"
-
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
-import { usePathname } from "next/navigation"
-import Link from 'next/link'
-import { CiMenuFries } from "react-icons/ci"
-
-const links = [
-    {
-        name: 'home',
-        path: "/home",
-    },
-    {
-        name: 'resume',
-        path: "/resume",
-    },
-    {
-        name: 'work',
-        path: "/work",
-    },
-    {
-        name: 'contact',
-        path: "/contact",
-    },
-]
-
-const MobileNav = () => {
-    const pathname = usePathname();
-
-    return (
-        <Sheet>
-            <SheetTrigger className="flex justify-center items-center">
-                <CiMenuFries className="text-[32px] text-accent" />
-            </SheetTrigger>
-
-            <SheetContent className="flex flex-col">
-                {/* logo */}
-                <div className='mt-32 mb-40 text-center text-2xl'>
-                    <Link href="/">
-                        <h1 className='text-4xl font-semibold'>
-                            Sean
-                            <span className='text-accent'>.</span>
-                        </h1>
-                    </Link>
-                </div>
-                {/* nav */}
-                <nav className='flex flex-col justify-center items-center gap-8'>
-                    {links.map((link, index) => {
-                        return <Link
-                            href={link.path}
-                            key={index}
-                            className={`
-                                ${link.path === pathname && "text-accent border-b-2 border-accent"}
-                                text-xl capitalize hover:text-accent transition-all`}>
-                            {link.name}
-                        </Link>
-                    })}
-                </nav>
-            </SheetContent>
-
-        </Sheet>
-    )
+"use client";
+import { useState } from "react";
+import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "@/components/ui/sheet";
+import { Menu, ArrowUpRight } from "lucide-react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+import { links } from "./Nav";
+export default function MobileNav() {
+  const pathname=usePathname();
+  const [open,setOpen]=useState(false);
+  return <Sheet open={open} onOpenChange={setOpen}>
+    <SheetTrigger className="p-2 text-accent" aria-label="Open navigation"><Menu size={24}/></SheetTrigger>
+    <SheetContent className="bg-black border-[#1C3334] p-7 data-[state=open]:animate-none data-[state=closed]:animate-none">
+      <SheetTitle className="sr-only">Navigation</SheetTitle>
+      <SheetDescription className="sr-only">Main navigation</SheetDescription>
+      <nav className="flex flex-col mt-10" aria-label="Mobile navigation">{links.map(link=><Link key={link.path} href={link.path} onClick={()=>setOpen(false)} aria-current={pathname===link.path?"page":undefined} className={`flex items-center justify-between py-5 border-b border-[#1C3334] ${pathname===link.path?"text-accent":"text-white"}`}>{link.name}<ArrowUpRight size={18}/></Link>)}</nav>
+    </SheetContent>
+  </Sheet>;
 }
-
-export default MobileNav

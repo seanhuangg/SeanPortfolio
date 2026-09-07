@@ -1,41 +1,36 @@
 "use client";
 
+import { useState } from "react";
+import Image from "next/image";
 import {
   FaHtml5,
   FaCss3,
   FaJs,
-  FaReact,
   FaJava,
   FaPython,
-  FaFigma,
   FaBitbucket,
-  FaJenkins,
-  FaGit,
   FaGitAlt,
-  FaJira,
+  FaDatabase,
+  FaRobot,
+  FaTerminal,
 } from "react-icons/fa";
 import {
-  SiTailwindcss,
-  SiNextdotjs,
   SiTypescript,
+  SiNextdotjs,
+  SiReact,
+  SiAngular,
+  SiAtlassian,
+  SiC,
+  SiGnubash,
+  SiGithubcopilot,
   SiSanity,
   SiPostman,
   SiJira,
-  SiVisualstudiocode,
-  SiEclipseide,
-  SiIntellijidea,
 } from "react-icons/si";
+import { VscCopilot, VscOpenai, VscVscode } from "react-icons/vsc";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { motion } from "framer-motion";
+import { Download } from "lucide-react";
 
 const about = {
   title: "Personal Information",
@@ -51,23 +46,16 @@ const about = {
     },
     {
       fieldName: "Education",
-      fieldValue: "Toronto Metropolitan University",
+      fieldValue: "B.Sc. Computer Science, Toronto Metropolitan University",
     },
     {
-      fieldName: "Nationality",
-      fieldValue: "Chinese Canadian",
+      fieldName: "Expected graduation",
+      fieldValue: "December 2027",
     },
     {
       fieldName: "Email",
-      fieldValue: "sean.huang@torontomu.ca",
-    },
-    {
-      fieldName: "Freelance",
-      fieldValue: "Available",
-    },
-    {
-      fieldName: "Languages",
-      fieldValue: "English, Chinese(Mandarin)",
+      fieldValue: "sean.huang16@hotmail.com",
+      href: "mailto:sean.huang16@hotmail.com",
     },
   ],
 };
@@ -75,12 +63,11 @@ const about = {
 const experience = {
   icon: "/assets/resume/logo.svg",
   title: "Work Experience",
-  description: "Here are my past/present roles! Seeking for new opportunities.",
   items: [
     {
-      company: "01 Quantum Inc.",
-      position: "Web Developer",
-      duration: "Jun 2025 - Present",
+      company: "EQ Bank",
+      position: "AI Software Developer Intern",
+      duration: "May 2026 - Present",
     },
     {
       company: "OTT Financial Group",
@@ -88,43 +75,9 @@ const experience = {
       duration: "May 2025 - Aug 2025",
     },
     {
-      company: "TMU Chinese Students Association(CSA)",
-      position: "Frontend Developer",
-      duration: "Jul 2025 - Present",
-    },
-  ],
-};
-
-const leadership = {
-  icon: "/assets/resume/logo.svg",
-  title: "Leadership Experience",
-  description:
-    "Soft skills are just as important as technical skills. Here are some of my experiences working in a leadership/team environment:",
-  items: [
-    {
-      company: "TMU Bold Badminton",
-      position: "Varsity Student Coach",
-      duration: "Sept 2025 - Present",
-    },
-    {
-      company: "TMU Bold Badminton",
-      position: "Varsity Captain",
-      duration: "Sept 2024 - Apr 2025",
-    },
-    {
-      company: "9Round Kickboxing Fitness",
-      position: "Fitness Trainer",
-      duration: "Sept 2021 - May 2025",
-    },
-    {
-      company: "Bujak Badminton",
-      position: "Badminton Coach",
-      duration: "Apr 2023 - Aug 2024",
-    },
-    {
-      company: "E badminton",
-      position: "Junior Coach",
-      duration: "Jun 2019 - Apr 2020",
+      company: "01 Quantum Inc.",
+      position: "Web Developer",
+      duration: "Jun 2025 - Present",
     },
   ],
 };
@@ -132,71 +85,124 @@ const leadership = {
 const education = {
   icon: "/assets/resume/logo.svg",
   title: "My Education",
-  description: "A brief overview of my educational background.",
+  description: "Computer Science studies with a foundation in software engineering and systems.",
   items: [
     {
       institution: "Toronto Metropolitan University",
       degree: "Bachelor of Science in Computer Science",
-      duration: "2023-Present",
+      duration: "Expected Dec. 2027",
     },
   ],
 };
 
 const skills = {
   title: "My Skills",
-  description: "",
+  description:
+    "A focused toolkit for AI automation, cloud-enabled applications, and modern web development.",
   skillList: [
     {
-      icon: <SiNextdotjs />,
-      name: "Next.js",
-    },
-    {
       icon: <FaJs />,
-      name: "Javascript",
-    },
-    {
-      icon: <FaReact />,
-      name: "React.js",
+      name: "JavaScript",
     },
     {
       icon: <SiTypescript />,
-      name: "Typescript",
-    },
-    {
-      icon: <FaJava />,
-      name: "Java",
+      name: "TypeScript",
     },
     {
       icon: <FaPython />,
       name: "Python",
     },
     {
+      icon: <FaJava />,
+      name: "Java",
+    },
+    {
+      icon: <SiC />,
+      name: "C",
+    },
+    {
+      icon: <FaDatabase />,
+      name: "SQL",
+    },
+    {
       icon: <FaHtml5 />,
-      name: "HTML 5",
+      name: "HTML",
     },
     {
       icon: <FaCss3 />,
-      name: "Css",
+      name: "CSS",
+    },
+    {
+      icon: <SiNextdotjs />,
+      name: "Next.js",
+    },
+    {
+      icon: <SiReact />,
+      name: "React",
+    },
+    {
+      icon: <SiAngular />,
+      name: "Angular",
+    },
+    {
+      icon: <Image className="skill-logo" src="/assets/icons/azure.png" alt="" width={21} height={21} />,
+      name: "Microsoft Azure",
+    },
+    {
+      icon: <Image className="skill-logo" src="/assets/icons/microsoft-foundry.png" alt="" width={21} height={21} />,
+      name: "Azure AI Foundry",
+    },
+    {
+      icon: <VscOpenai />,
+      name: "Azure OpenAI",
+    },
+    {
+      icon: <Image className="skill-logo" src="/assets/icons/microsoft-copilot-studio.svg" alt="" width={21} height={21} />,
+      name: "Microsoft Copilot Studio",
+    },
+    {
+      icon: <Image className="skill-logo" src="/assets/icons/microsoft-power-automate.svg" alt="" width={21} height={21} />,
+      name: "Microsoft Power Automate",
+    },
+    {
+      icon: <Image className="skill-logo" src="/assets/icons/microsoft-power-platform.svg" alt="" width={21} height={21} />,
+      name: "Microsoft Power Platform",
+    },
+    {
+      icon: <VscCopilot />,
+      name: "Microsoft 365 Copilot",
+    },
+    {
+      icon: <SiGithubcopilot />,
+      name: "GitHub Copilot",
+    },
+    {
+      icon: <FaRobot />,
+      name: "Agentic AI",
+    },
+    {
+      icon: <SiGnubash />,
+      name: "Bash",
+    },
+    {
+      icon: <SiAtlassian />,
+      name: "Atlassian",
     },
     {
       icon: <FaGitAlt />,
       name: "Git",
     },
     {
-      icon: <FaFigma />,
-      name: "Figma",
+      icon: <FaBitbucket />,
+      name: "Bitbucket",
+    },
+    {
+      icon: <Image className="skill-logo" src="/assets/icons/jenkins.png" alt="" width={21} height={21} />,
+      name: "Jenkins",
     },
     {
       icon: <SiJira />,
       name: "Jira",
-    },
-    {
-      icon: <FaBitbucket />,
-      name: "Atlassian Bitbucket",
-    },
-    {
-      icon: <FaJenkins />,
-      name: "Jenkins CI/CD",
     },
     {
       icon: <SiPostman />,
@@ -207,207 +213,113 @@ const skills = {
       name: "Sanity Studio",
     },
     {
-      icon: <SiVisualstudiocode />,
-      name: "VS Code",
+      icon: <VscVscode />,
+      name: "Visual Studio Code",
     },
     {
-      icon: <SiEclipseide />,
-      name: "Eclipse IDE",
+      icon: <Image className="skill-logo" src="/assets/icons/figma.png" alt="" width={21} height={21} />,
+      name: "Figma",
+    },
+  ],
+  categories: [
+    {
+      name: "Cloud & AI",
+      skillNames: ["Microsoft Azure", "Azure AI Foundry", "Azure OpenAI", "Microsoft Copilot Studio", "Microsoft Power Automate", "Microsoft Power Platform", "Microsoft 365 Copilot", "GitHub Copilot", "Agentic AI"],
     },
     {
-      icon: <SiIntellijidea />,
-      name: "IntelliJ IDEA",
+      name: "Programming Languages",
+      skillNames: ["JavaScript", "TypeScript", "Python", "Java", "C", "SQL", "Bash"],
+    },
+    {
+      name: "Web Technologies",
+      skillNames: ["HTML", "CSS", "Next.js", "React", "Angular", "Sanity Studio"],
+    },
+    {
+      name: "Development Tools",
+      skillNames: ["Atlassian", "Git", "Bitbucket", "Jenkins", "Jira", "Postman", "Visual Studio Code", "Figma"],
     },
   ],
 };
 
-const Resume = () => {
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{
-        opacity: 1,
-        transition: { delay: 0.4, duration: 0.4, ease: "easeIn" },
-      }}
-      className="min-h-[80vh] flex items-center justify-center py-12 xl:py-8"
-    >
-      <div className="container mx-auto">
-        <Tabs
-          defaultValue="experience"
-          className="flex flex-col xl:flex-row gap-[60px]"
-        >
-          <TabsList className="flex flex-col w-full max-w-[380px] mx-auto xl:mx-0 gap-6">
-            <TabsTrigger value="experience">Experience</TabsTrigger>
-            <TabsTrigger value="leadership">Leadership Experience</TabsTrigger>
-            <TabsTrigger value="education">Edcuation</TabsTrigger>
-            <TabsTrigger value="skills">Skills</TabsTrigger>
-            <TabsTrigger value="about">About me</TabsTrigger>
-          </TabsList>
-
-          {/* content */}
-          <div className="min-h-[70vh] w-full">
-            {/* experience */}
-            <TabsContent value="experience" className="w-full">
-              <div className="flex flex-col gap-[30px] text-center xl:text-left">
-                <h3 className="text-4xl font-bold">{experience.title}</h3>
-                <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">
-                  {experience.description}
-                </p>
-                <ScrollArea className="h-[400px]">
-                  <ul className="grid grid-cols-1 lg:grid-cols-2 gap-[30px]">
-                    {experience.items.map((item, index) => {
-                      return (
-                        <li
-                          key={index}
-                          className="bg-[#232329] h-[184px] py-6 px-10 rounded-xl flex flex-col justify-center items-center
-                      lg:items-start gap-1"
-                        >
-                          <span className="text-accent">{item.duration}</span>
-                          <h3
-                            className="text-xl max-w-[260px] min-h-[60px] text-center
-                        lg:text-left"
-                          >
-                            {item.position}
-                          </h3>
-                          <div className="flex items-center gap-3">
-                            <span className="w-[6px] h-[6px] rounded-full bg-accent"></span>
-                            <p className="text-white/60">{item.company}</p>
-                          </div>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </ScrollArea>
-              </div>
-            </TabsContent>
-
-            {/* leadership experience */}
-            <TabsContent value="leadership" className="w-full">
-              <div className="flex flex-col gap-[30px] text-center xl:text-left">
-                <h3 className="text-4xl font-bold">{leadership.title}</h3>
-                <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">
-                  {leadership.description}
-                </p>
-                <ScrollArea className="h-[400px]">
-                  <ul className="grid grid-cols-1 lg:grid-cols-2 gap-[30px]">
-                    {leadership.items.map((leader, index) => {
-                      return (
-                        <li
-                          key={index}
-                          className="bg-[#232329] h-[184px] py-6 px-10 rounded-xl flex flex-col justify-center items-center
-                      lg:items-start gap-1"
-                        >
-                          <span className="text-accent">{leader.duration}</span>
-                          <h3 className="text-xl max-w-[260px] min-h-[60px] text-center lg:text-left">
-                            {leader.position}
-                          </h3>
-                          <div className="flex items-center gap-3">
-                            <span className="w-[6px] h-[6px] rounded-full bg-accent"></span>
-                            <p className="text-white/60">{leader.company}</p>
-                          </div>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </ScrollArea>
-              </div>
-            </TabsContent>
-
-            {/* education */}
-            <TabsContent value="education" className="w-full">
-              <div className="flex flex-col gap-[30px] text-center xl:text-left">
-                <h3 className="text-4xl font-bold">{education.title}</h3>
-                <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">
-                  {education.description}
-                </p>
-                <ScrollArea className="h-[400px]">
-                  <ul className="grid grid-cols-1 lg:grid-cols-2 gap-[30px]">
-                    {education.items.map((item, index) => {
-                      return (
-                        <li
-                          key={index}
-                          className="bg-[#232329] h-[184px] py-6 px-10 rounded-xl flex flex-col justify-center items-center
-                      lg:items-start gap-1"
-                        >
-                          <span className="text-accent">{item.duration}</span>
-                          <h3
-                            className="text-xl max-w-[260px] min-h-[60px] text-center
-                        lg:text-left"
-                          >
-                            {item.degree}
-                          </h3>
-                          <div className="flex items-center gap-3">
-                            <span className="w-[6px] h-[6px] rounded-full bg-accent"></span>
-                            <p className="text-white/60">{item.institution}</p>
-                          </div>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </ScrollArea>
-              </div>
-            </TabsContent>
-
-            {/* skills */}
-            <TabsContent value="skills" className="w-full h-full">
-              <div className="flex flex-col gap-[30px]">
-                <div className="flex flex-col gap-[30px] text-center xl:text-left">
-                  <h3 className="text-4xl font-bold">{skills.title}</h3>
-                  <p className="max-w-[600px] text-white/60 mx-autp xl:mx-0">
-                    {skills.description}
-                  </p>
-
-                  <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 xl:gap-[30px]">
-                    {skills.skillList.map((skill, index) => {
-                      return (
-                        <li key={index}>
-                          <TooltipProvider delayDuration={100}>
-                            <Tooltip>
-                              <TooltipTrigger className="w-full h-[150px] bg-[#232329] rounded-xl flex justify-center items-center group">
-                                <div className="text-6xl group-hover:text-accent transition-all duration-300">
-                                  {skill.icon}
-                                </div>
-                              </TooltipTrigger>
-                              <TooltipContent>
-                                <p className="capitalize">{skill.name}</p>
-                              </TooltipContent>
-                            </Tooltip>
-                          </TooltipProvider>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </div>
-              </div>
-            </TabsContent>
-
-            {/* about */}
-            <TabsContent value="about" className="w-full">
-              <div className="flex flex-col gap-[30px]">
-                <h3 className="text-4xl font-bold">{about.title}</h3>
-                <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0 pb-8">
-                  {about.description}
-                </p>
-              </div>
-              <ul className="grid grid-cols-1 xl:grid-cols-2 gap-x-48 gap-y-8 max-w-[620px] mx-auto xl:mx-0">
-                {about.info.map((item, index) => {
-                  return (
-                    <li
-                      key={index}
-                      className="flex items-center justify-center xl:justify-start gap-4"
-                    >
-                      <span className="text-white/60 whitespace-nowrap ">{item.fieldName}</span>
-                      <span className="text-xl">{item.fieldValue}</span>
-                    </li>
-                  );
-                })}
-              </ul>
-            </TabsContent>
-          </div>
-        </Tabs>
-      </div>
-    </motion.div>
-  );
+const skillLogoColors = {
+  JavaScript: "#F7DF1E",
+  TypeScript: "#3178C6",
+  Python: "#3776AB",
+  Java: "#007396",
+  C: "#A8B9CC",
+  SQL: "#4479A1",
+  HTML: "#E34F26",
+  CSS: "#1572B6",
+  "Next.js": "#FFFFFF",
+  React: "#61DAFB",
+  Angular: "#DD0031",
+  "Microsoft Azure": "#0078D4",
+  "Azure AI Foundry": "#0078D4",
+  "Azure OpenAI": "#10A37F",
+  "Microsoft Copilot Studio": "#0078D4",
+  "Microsoft Power Automate": "#0066FF",
+  "Microsoft Power Platform": "#742774",
+  "Microsoft 365 Copilot": "#6264A7",
+  "GitHub Copilot": "#FFFFFF",
+  "Agentic AI": "#8B5CF6",
+  Bash: "#4EAA25",
+  Atlassian: "#1868DB",
+  Git: "#F05032",
+  Bitbucket: "#2684FF",
+  Jenkins: "#D24939",
+  Jira: "#2684FF",
+  Postman: "#FF6C37",
+  "Sanity Studio": "#F03E2F",
+  "Visual Studio Code": "#007ACC",
+  Figma: "#F24E1E",
 };
 
-export default Resume;
+
+const details = {
+  "EQ Bank": "Automated internal business processes with Microsoft Power Automate, reducing manual effort by 30%. Built internal AI agents and automated evaluation workflows.",
+  "OTT Financial Group": "Developed Angular features for fintech operations and merchant management. Integrated RESTful APIs and contributed to automated testing.",
+  "01 Quantum Inc.": "Built reusable Next.js components from Figma designs. Automated Sanity CMS publishing with a webhook-driven build pipeline.",
+};
+
+const resumeTabs = ["experience", "education", "skills", "about"];
+const resumeTabStorageKey = "sean-portfolio:resume-active-tab";
+
+export default function Resume() {
+  const [activeTab, setActiveTab] = useState(() => {
+    if (typeof window === "undefined") return "experience";
+    const savedTab = window.localStorage.getItem(resumeTabStorageKey);
+    return resumeTabs.includes(savedTab) ? savedTab : "experience";
+  });
+
+  const handleTabChange = (value) => {
+    setActiveTab(value);
+    window.localStorage.setItem(resumeTabStorageKey, value);
+  };
+
+  return <div className="container page resume-page">
+    <div className="page-heading"><h1>Resume<span className="text-accent">.</span></h1><a href="/assets/resume/Sean_Huang_Resume.pdf" target="_blank" rel="noreferrer" className="button">Download My Resume <Download size={16}/></a></div>
+    <Tabs value={activeTab} onValueChange={handleTabChange} className="resume-tabs">
+      <TabsList className="resume-tablist" aria-label="Resume sections">
+        <TabsTrigger className="resume-tab" value="experience">Experience</TabsTrigger>
+        <TabsTrigger className="resume-tab" value="education">Education</TabsTrigger>
+        <TabsTrigger className="resume-tab" value="skills">Skills</TabsTrigger>
+        <TabsTrigger className="resume-tab" value="about">About me</TabsTrigger>
+      </TabsList>
+      <div>
+        <TabsContent value="experience" className="resume-content">
+          <h2 className="resume-section-heading">{experience.title}</h2>
+          {experience.items.map(item=><article key={item.company} className="experience-item"><div className="experience-meta"><p>{item.company}</p><span>{item.duration}</span></div><h3>{item.position}</h3><p className="experience-detail">{details[item.company]}</p></article>)}
+        </TabsContent>
+        <TabsContent value="education" className="resume-content"><h2 className="resume-section-heading">{education.title}</h2><p className="section-description">{education.description}</p>
+          {education.items.map(item=><article className="experience-item" key={item.institution}><div className="experience-meta"><p>{item.institution}</p><span>{item.duration}</span></div><h3>{item.degree}</h3></article>)}
+        </TabsContent>
+        <TabsContent value="skills" className="resume-content"><h2 className="resume-section-heading">{skills.title}</h2><p className="section-description">{skills.description}</p>
+          <div className="skill-categories">{skills.categories.map(category=><section className="skill-category" key={category.name}><h3>{category.name}</h3><ul className="skill-grid">{category.skillNames.map(name=>{const skill=skills.skillList.find(item=>item.name===name); return <li className="skill-item" style={{"--skill-color":skillLogoColors[skill.name]}} key={skill.name}><span aria-hidden="true">{skill.icon}</span><span>{skill.name}</span></li>;})}</ul></section>)}</div>
+        </TabsContent>
+        <TabsContent value="about" className="resume-content"><h2 className="resume-section-heading">{about.title}</h2>{about.description&&<p className="section-description">{about.description}</p>}
+          <dl className="about-list mt-7">{about.info.map(item=><div key={item.fieldName}><dt>{item.fieldName}</dt><dd>{item.href ? <a href={item.href}>{item.fieldValue}</a> : item.fieldValue}</dd></div>)}</dl>
+        </TabsContent>
+      </div>
+    </Tabs>
+  </div>;
+}
